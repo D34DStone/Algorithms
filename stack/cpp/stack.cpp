@@ -38,29 +38,3 @@ T Stack<T>::pop()
 
     return *(top--);
 }
-
-int main()
-{
-    auto s = Stack<int>();
-
-    std::string cmd = "";
-
-    while(1)
-    {
-        std::cin >> cmd;
-        if(cmd == "exit") break;
-
-        if(cmd == "push")
-        {
-            int val = 0;
-            std::cin >> val;
-            s.push(val);
-        }
-        if(cmd == "pop")
-        {
-            std::cout << s.pop() << std::endl;
-        }
-    }    
-
-    return 0;
-}
