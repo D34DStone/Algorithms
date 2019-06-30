@@ -20,23 +20,13 @@ instance Monad (Reader s) where
         in runReader (k v) e 
 
 
-get :: Reader a a
-get = Reader $ \e -> e
+ask :: Reader a a
+ask = Reader $ \e -> e
 
 
-add_env :: Int -> Reader Int Int
-add_env v = Reader $ \e -> v + e
+asks :: (e -> e') -> Reader e e'
+asks f = Reader $ \e -> f e
 
 
-mult_env :: Int -> Reader Int Int 
-mult_env v = Reader $ \e -> v * e
-
-
--- return n * (n + 1)
-foo = runReader (do 
-    v <- get
-    v' <- mult_env v
-    v'' <- add_env v'
-    return v')
-
-    
+local :: (e -> e') -> Reader e' a -> Reader e a
+local f m = Reader $ \e -> runReader m (f e)
